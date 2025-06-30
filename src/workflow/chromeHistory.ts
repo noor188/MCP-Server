@@ -2,7 +2,8 @@ import sqlite3 from 'sqlite3';
 import path from 'path';
 import os from 'os';
 
-// path to chrome History DB
+// setup 
+// 1. path to chrome History DB
 const historyPath = path.join(
     os.homedir(),
     'AppData',
@@ -14,7 +15,7 @@ const historyPath = path.join(
     'History'
 );
 
-// Open the database (read-only)
+// 2. Open the database (read-only)
 const db = new sqlite3.Database(historyPath, sqlite3.OPEN_READONLY, (err) => {
     if (err){
         console.error("Error opening database", err.message);
@@ -23,6 +24,7 @@ const db = new sqlite3.Database(historyPath, sqlite3.OPEN_READONLY, (err) => {
     }
 });
 
+// workflow
 // Query last 10 visited URLs
 export function getRecentHistory(limit = 10): Promise<any[]>{
     return new Promise ((resolve, reject) => {

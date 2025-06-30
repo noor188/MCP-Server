@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { runLLMWorkflow } from './workflow/runLLMWorkflow';
+import { runLLMWorkflow } from './utility/runLLMWorkflow';
 import readline from 'readline';
 
 const rl = readline.createInterface({
