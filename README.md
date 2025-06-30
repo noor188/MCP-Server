@@ -21,18 +21,13 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 ## Installation
 
-1. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+1. Set up environment variables (see above)
 
-3. Set up environment variables (see above)
-
-4. Run the server:
+2. Run the server:
 ```bash
 npm start
 ```
+## Demo
 
 ## Future
 
