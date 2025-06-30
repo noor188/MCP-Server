@@ -14,7 +14,7 @@ An implementation of a MCP server to automate an end-to-end workflow using 3 too
 Create a `.env` file in the `MCP-SERVER-PROJECT` directory with the following variables:
 
 ```env
-# Google Gemini API Key for AI responses
+# Openai API Key for AI responses
 OPENAI_API_KEY=your_openai_api_key_here
 
 ```
@@ -28,6 +28,8 @@ OPENAI_API_KEY=your_openai_api_key_here
 npm start
 ```
 ## Demo
+
+<a href="https://youtu.be/b6MmNZaWYYs"> YouTube link </a>
 
 ## Future
 
