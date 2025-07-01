@@ -3,12 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import Ajv from "ajv";
 import schema from "./mcpAction.schema.json"; 
+import MCPAction from "../interface/action";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
 const ajv = new Ajv();
 
-export async function interpretPrompt(prompt: string, context: string): Promise<any> {
+export async function interpretPrompt(prompt: string, context: string): Promise<MCPAction> {
     const systemPrompt = fs.readFileSync(path.join(__dirname, '../prompts/systemPrompt.txt'), 'utf-8');
     const userPromptTemplate = fs.readFileSync(path.join(__dirname, '../prompts/userPrompt.txt'), 'utf-8');
     const userPrompt = userPromptTemplate
@@ -37,5 +38,5 @@ export async function interpretPrompt(prompt: string, context: string): Promise<
         throw new Error("LLM output does not match MCP schema: " + JSON.stringify(validate.errors));
     }
 
-    return parsed;
+    return parsed as unknown as MCPAction;
 }
