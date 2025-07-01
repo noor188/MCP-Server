@@ -25,18 +25,41 @@ export async function runLLMWorkflow(userPrompt: string) {
             console.log("Summary of history:", context);
             break;
         case "send_email":
+        if (
+            result.parameters &&
+            typeof result.parameters.to === "string" &&
+            typeof result.parameters.subject === "string" &&
+            typeof result.parameters.body === "string"
+        ) {
             await sendEmail(
                 result.parameters.to,
                 result.parameters.subject,
                 result.parameters.body
             );
             console.log("Email sent.");
-            break;
-        case "create_event":
-            await createEvent(result.parameters);
-            console.log("Event created.");
-            break;
+        } else {
+            console.error("Missing or invalid email parameters:", result.parameters);
+        }
+        break;
+    case "create_event":
+    if (
+        result.parameters &&
+        typeof result.parameters.summary === "string" &&
+        typeof result.parameters.start === "string" &&
+        typeof result.parameters.end === "string"
+    ) {
+        const event = {
+            summary: result.parameters.summary,
+            start: { dateTime: result.parameters.start },
+            end: { dateTime: result.parameters.end }
+        };
+        await createEvent(event);
+        console.log("Event created.");
+    } else {
+        console.error("Missing or invalid event parameters:", result.parameters);
+    }
+    break;
         default:
-            console.log("Unknown action:", result.action);
+            console.log("Unknown action:", result.tool_call.tool);
     }
 }
