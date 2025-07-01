@@ -19,24 +19,24 @@ export async function runLLMWorkflow(userPrompt: string) {
     const result = await interpretPrompt(userPrompt, context);  
 
     // Take action based on LLM output
-    switch (result.tool_call) {
+    switch (result.tool_call.tool) {
         case "summarize_history":
             // Example: summarize history and print/send
             console.log("Summary of history:", context);
             break;
         case "send_email":
             await sendEmail(
-                actionObj.parameters.to,
-                actionObj.parameters.subject,
-                actionObj.parameters.body
+                result.parameters.to,
+                result.parameters.subject,
+                result.parameters.body
             );
             console.log("Email sent.");
             break;
         case "create_event":
-            await createEvent(actionObj.parameters);
+            await createEvent(result.parameters);
             console.log("Event created.");
             break;
         default:
-            console.log("Unknown action:", actionObj.action);
+            console.log("Unknown action:", result.action);
     }
 }

@@ -6,7 +6,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
 
 const ajv = new Ajv();
 
-export async function interpretPrompt(prompt: string, context: string): Promise<JSON> {
+export async function interpretPrompt(prompt: string, context: string): Promise<any> {
     const systemPrompt = `
 You are an assistant that can take actions using Chrome History, Gmail, and Google Calendar APIs.
 Given the user's prompt and context, output a JSON object with this structure:
