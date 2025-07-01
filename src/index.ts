@@ -7,8 +7,6 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.on('close', () => process.exit(0));
-
 rl.question('Please enter your prompt: ', (userPrompt) => {
     runLLMWorkflow(userPrompt).catch(console.error).finally(() => rl.close());
 });
