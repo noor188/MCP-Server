@@ -16,16 +16,10 @@ export async function runLLMWorkflow(userPrompt: string) {
     
 
     // Get LLM decision
-    const llmResponse = await interpretPrompt(userPrompt, context);
-    let actionObj;
-    try {
-        actionObj = JSON.parse(llmResponse);
-    } catch (e) {
-        throw new Error('LLM response could not be parsed as JSON: ' + llmResponse);
-    }
+    const result = await interpretPrompt(userPrompt, context);  
 
     // Take action based on LLM output
-    switch (actionObj.action) {
+    switch (result.tool_call) {
         case "summarize_history":
             // Example: summarize history and print/send
             console.log("Summary of history:", context);

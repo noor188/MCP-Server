@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCPAction",
+  "type": "object",
+  "properties": {
+    "tool_call": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "string",
+          "enum": ["summarize_history", "send_email", "list_events", "create_event"]
+        },
+        "args": {
+          "type": "object"
+        }
+      },
+      "required": ["tool", "args"]
+    }
+  },
+  "required": ["tool_call"]
+}
