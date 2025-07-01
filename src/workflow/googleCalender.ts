@@ -1,31 +1,16 @@
 import path from 'path';
-import fs from 'fs-extra';
 import { authenticate } from '@google-cloud/local-auth';
 import { google, calendar_v3 } from 'googleapis';
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
-const TOKEN_PATH = path.join(process.cwd(), 'toke.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
 async function getAuth() {
-    // If token exists, use it
-    if (await fs.pathExists(TOKEN_PATH)) {
-        const token = await fs.readJson(TOKEN_PATH);
-        const credentials = await fs.readJson(CREDENTIALS_PATH);
-        const { client_secret, client_id, redirect_uris } = credentials.installed;
-        const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-        oAuth2Client.setCredentials(token);
-        return oAuth2Client;
-    }
-
-    // Otherwise, authenticate and save token
-    const oAuth2Client = await authenticate({
-        keyfilePath: CREDENTIALS_PATH,
+    const credentialsPath = path.join(process.cwd(), 'credentials.json');
+    // authenticate() returns an OAuth2Client directly
+    return authenticate({
+        keyfilePath: credentialsPath,
         scopes: SCOPES,
     });
-    // Save the token for next time
-    await fs.writeJson(TOKEN_PATH, oAuth2Client.credentials, { spaces: 2 });
-    return oAuth2Client;
 }
 
 
