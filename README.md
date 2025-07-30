@@ -2,7 +2,6 @@
 
 **Uses `@vercel/mcp-adapter`**
 
-
 ## Usage
 
 This sample app uses the [Vercel MCP Adapter](https://www.npmjs.com/package/@vercel/mcp-adapter) that allows you to drop in an MCP server on a group of routes in any Next.js project.
